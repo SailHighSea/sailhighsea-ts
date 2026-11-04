@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <title>SailHighSea TorrentSearch</title>
+  <defs>
+    <linearGradient id="gear" gradientUnits="userSpaceOnUse" x1="20" y1="4" x2="108" y2="124">
+      <stop offset="0" stop-color="#3B82F6"/>
+      <stop offset="1" stop-color="#2563EB"/>
+    </linearGradient>
+  </defs>
+  <g fill="url(#gear)">
+    <rect x="54" y="4" width="20" height="16" rx="4.5" transform="rotate(0 64 64)"/>
+    <rect x="54" y="4" width="20" height="16" rx="4.5" transform="rotate(45 64 64)"/>
+    <rect x="54" y="4" width="20" height="16" rx="4.5" transform="rotate(90 64 64)"/>
+    <rect x="54" y="4" width="20" height="16" rx="4.5" transform="rotate(135 64 64)"/>
+    <rect x="54" y="4" width="20" height="16" rx="4.5" transform="rotate(180 64 64)"/>
+    <rect x="54" y="4" width="20" height="16" rx="4.5" transform="rotate(225 64 64)"/>
+    <rect x="54" y="4" width="20" height="16" rx="4.5" transform="rotate(270 64 64)"/>
+    <rect x="54" y="4" width="20" height="16" rx="4.5" transform="rotate(315 64 64)"/>
+  </g>
+  <circle cx="64" cy="64" r="41.25" fill="none" stroke="url(#gear)" stroke-width="16.5"/>
+  <circle cx="64" cy="64" r="33" fill="#0F172A"/>
+  <g transform="translate(64 64)">
+    <polygon points="-1.24,-10.24 -1.24,4.64 -9.3,4.64" fill="#FFFFFF"/>
+    <polygon points="1.24,-9 1.24,4.64 9.3,4.64" fill="#93C5FD"/>
+    <polygon points="-10.54,6.5 10.54,6.5 7.75,10.22 -7.75,10.22" fill="#FFFFFF"/>
+    <polyline points="19,0 18.84,2.48 18.35,4.92 17.55,7.27 16.45,9.5 15.07,11.57 13.44,13.44 11.57,15.07 9.5,16.45 7.27,17.55 4.92,18.35 2.48,18.84 0,19 -2.48,18.84 -4.92,18.35 -7.27,17.55 -9.5,16.45 -11.57,15.07 -13.44,13.44 -15.07,11.57 -16.45,9.5 -17.55,7.27 -18.35,4.92 -18.84,2.48 -19,0 -18.84,-2.48 -18.35,-4.92 -17.55,-7.27 -16.45,-9.5 -15.07,-11.57 -13.44,-13.44 -11.57,-15.07 -9.5,-16.45 -7.27,-17.55 -4.92,-18.35 -2.48,-18.84 0,-19 2.48,-18.84 4.92,-18.35 7.27,-17.55 9.5,-16.45 11.57,-15.07 13.44,-13.44 15.07,-11.57 16.45,-9.5 17.55,-7.27 18.35,-4.92 18.84,-2.48 19,0" fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="14.5,14.5 20.15,20.15" fill="none" stroke="#FFFFFF" stroke-width="4.76" stroke-linecap="round"/>
+  </g>
+</svg>
