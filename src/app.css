@@ -1,0 +1,226 @@
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body {
+  background: var(--bg); color: var(--text); font: var(--font-size)/1.4 var(--font);
+  -webkit-font-smoothing: var(--smooth); overscroll-behavior: none; -webkit-tap-highlight-color: transparent;
+}
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+h1 { font-size: 1.5em; margin: 0 0 12px; }
+h2 { font-size: 1.1em; margin: 0 0 10px; }
+.muted { color: var(--muted); }
+.small { font-size: .9em; }
+.mono { font-family: ui-monospace, Consolas, "DejaVu Sans Mono", monospace; }
+.wrap { overflow-wrap: anywhere; }
+.accent { color: var(--primary); font-weight: 600; }
+.icon { flex: none; vertical-align: -3px; }
+.splash { display: grid; place-items: center; height: 100%; color: var(--muted); }
+
+/* ---- shell ---- */
+.app { display: flex; flex-direction: column; height: 100%; background: var(--bg); }
+.app.mobile { padding-top: env(safe-area-inset-top); }
+.body { flex: 1; display: flex; min-height: 0; min-width: 0; overflow: hidden; }
+main { flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+
+.titlebar {
+  display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 0 0 10px; flex: none;
+  background: var(--title-bg); color: var(--title-ink); user-select: none; border-bottom: var(--border-w) solid var(--border);
+}
+.titlebar-logo { width: 18px; height: 18px; }
+.titlebar-title { flex: 1; font-weight: var(--title-weight); font-size: .95em; }
+.titlebar-buttons { display: flex; height: 100%; }
+.titlebar-buttons button {
+  width: 46px; border: 0; background: transparent; color: inherit; display: grid; place-items: center;
+}
+.titlebar-buttons button:hover { background: rgba(127,127,127,.28); }
+.titlebar-buttons button.close:hover { background: #e81123; color: #fff; }
+:root[data-theme="win98"] .titlebar-buttons button, :root[data-theme="cde"] .titlebar-buttons button {
+  width: 22px; height: 20px; margin: 4px 2px; background: var(--btn-bg); color: var(--text); box-shadow: var(--raised);
+}
+:root[data-theme="win98"] .titlebar-buttons button:hover, :root[data-theme="cde"] .titlebar-buttons button:hover,
+:root[data-theme="win98"] .titlebar-buttons button.close:hover, :root[data-theme="cde"] .titlebar-buttons button.close:hover { background: var(--btn-bg); color: var(--text); }
+
+.rail {
+  width: 76px; flex: none; display: flex; flex-direction: column; gap: 4px; padding: 8px 6px;
+  background: var(--card); border-right: var(--border-w) solid var(--border); box-shadow: var(--raised);
+}
+.rail-item {
+  position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 2px;
+  border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--muted); font-size: .78em;
+}
+.rail-item:hover { background: var(--card-hover); color: var(--text); }
+.rail-item.active { background: var(--pri-bg); color: var(--pri-ink); }
+.badge { position: absolute; top: 3px; right: 10px; font-style: normal; font-size: .75em; min-width: 16px; padding: 0 4px; border-radius: 8px; background: var(--danger); color: #fff; text-align: center; }
+
+.statusbar {
+  display: flex; align-items: center; gap: 12px; flex: none; padding: 4px 12px; font-size: .88em; color: var(--muted);
+  background: var(--card); border-top: var(--border-w) solid var(--border); padding-bottom: calc(4px + env(safe-area-inset-bottom));
+}
+.status-text { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.status-update { border: 0; background: none; color: var(--primary); font-weight: 600; text-decoration: underline; }
+
+/* ---- pages ---- */
+.page { flex: 1; display: flex; flex-direction: column; min-height: 0; min-width: 0; padding: 16px 14px 0 16px; max-width: 1240px; width: 100%; margin: 0 auto; }
+.page-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.scroll { flex: 1; overflow-y: auto; overflow-x: hidden; min-height: 0; min-width: 0; padding-bottom: 16px; }
+.empty { padding: 36px 8px; text-align: center; color: var(--muted); }
+.hero h2 { color: var(--text); font-size: 1.4em; }
+.toolbar { display: flex; align-items: center; gap: 12px; margin: 12px 0 8px; }
+.toolbar .muted { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.link { border: 0; background: none; color: var(--primary); text-decoration: underline; padding: 0; }
+.source-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.source-chip { font-size: .82em; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); background: var(--card); }
+.source-chip.ok { border-color: var(--success); color: var(--success); }
+.source-chip.failed { border-color: var(--danger); color: var(--danger); }
+.source-chip.running { color: var(--warning); border-color: var(--warning); }
+
+/* ---- controls ---- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 34px; padding: 4px 12px;
+  border: var(--border-w) solid var(--border); border-radius: var(--radius-sm); background: var(--btn-bg); color: var(--btn-ink); box-shadow: var(--raised);
+}
+.btn:hover { background: var(--card-hover); }
+.btn:active { box-shadow: var(--sunken); }
+:root[data-theme="platinum"] .btn:hover, :root[data-theme="gnome2"] .btn:hover { background: var(--btn-bg); filter: brightness(1.06); }
+.btn.primary { background: var(--pri-bg); color: var(--pri-ink); border-color: var(--primary); }
+.btn.primary:hover { background: var(--primary-hover); }
+:root[data-theme="platinum"] .btn.primary:hover, :root[data-theme="gnome2"] .btn.primary:hover { background: var(--pri-bg); filter: brightness(1.08); }
+.btn.on { color: #f5b301; border-color: #f5b301; }
+.btn:disabled { opacity: .5; cursor: default; }
+.btn.icon-only { padding: 4px 8px; }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 10px 0; }
+.row.buttons { justify-content: flex-start; flex-wrap: wrap; }
+select, input[type="text"], .field {
+  background: var(--card); border: var(--border-w) solid var(--border); border-radius: var(--radius-sm); padding: 6px 8px; box-shadow: var(--sunken);
+}
+select { min-height: 34px; }
+
+.searchbox { position: relative; display: flex; gap: 8px; }
+.field { flex: 1; display: flex; align-items: center; gap: 8px; padding: 0 10px; border-radius: var(--radius); color: var(--muted); }
+.field:focus-within { border-color: var(--primary); }
+.field input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--text); padding: 10px 0; font-size: 1.05em; }
+.clear { border: 0; background: none; color: var(--muted); padding: 4px; }
+.go { padding: 0 18px; }
+.sugs {
+  position: absolute; z-index: 20; top: calc(100% + 4px); left: 0; right: 0; margin: 0; padding: 4px; list-style: none;
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: 0 8px 24px rgba(0,0,0,.28), var(--raised);
+}
+.sugs li { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: var(--radius-sm); cursor: pointer; }
+.sugs li.sel { background: var(--pri-bg); color: var(--pri-ink); }
+
+/* ---- result cards ---- */
+.list { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.card {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 12px; align-items: center; min-width: 0; padding: 10px 12px; cursor: pointer;
+  background: var(--card); border: var(--border-w) solid var(--border); border-radius: var(--radius); box-shadow: var(--raised);
+}
+.card:hover { background: var(--card-hover); }
+.card-main { min-width: 0; }
+.card-title { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.card.open .card-title { white-space: normal; overflow-wrap: anywhere; }
+.card-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 3px; font-size: .9em; color: var(--muted); }
+.card-meta .src { color: var(--primary); font-weight: 600; }
+.chip { padding: 0 6px; border: 1px solid var(--border); border-radius: 999px; }
+.seeds { color: var(--success); font-weight: 600; }
+.leech { color: var(--danger); }
+.card-actions { display: flex; gap: 6px; }
+.card-detail { grid-column: 1 / -1; padding-top: 8px; border-top: 1px solid var(--border); cursor: default; }
+.card-detail dl { display: grid; grid-template-columns: max-content 1fr; gap: 2px 14px; margin: 0 0 8px; }
+.card-detail dt { color: var(--muted); }
+.card-detail dd { margin: 0; overflow-wrap: anywhere; }
+.tree-box { max-height: 280px; overflow: auto; padding: 6px 8px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); box-shadow: var(--sunken); }
+.tree-box summary, .tree-file { display: flex; align-items: center; gap: 6px; padding: 1px 0; cursor: default; }
+.tree-box details > summary { cursor: pointer; list-style-position: inside; }
+.tree-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tree-size { color: var(--muted); margin-left: auto; padding-left: 12px; white-space: nowrap; }
+.tree-indent { margin-left: 16px; }
+.tree-head { margin-bottom: 4px; }
+
+/* ---- history / settings / about ---- */
+.history { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.history li { display: flex; gap: 6px; }
+.history-q { flex: 1; display: flex; align-items: center; gap: 8px; text-align: left; padding: 10px 12px; background: var(--card); border: var(--border-w) solid var(--border); border-radius: var(--radius-sm); box-shadow: var(--raised); }
+.history-q:hover { background: var(--card-hover); }
+.panel { background: var(--card); border: var(--border-w) solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 14px; box-shadow: var(--raised); }
+.settings { max-width: none; }
+.theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; margin-bottom: 8px; }
+.theme-btn { padding: 9px 8px; background: var(--btn-bg); border: var(--border-w) solid var(--border); border-radius: var(--radius-sm); box-shadow: var(--raised); }
+.theme-btn.active { background: var(--pri-bg); color: var(--pri-ink); border-color: var(--primary); }
+.source-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 2px 12px; }
+.check { display: flex; align-items: center; gap: 8px; padding: 5px 0; }
+.switch-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 0; }
+.switch-row span { display: flex; flex-direction: column; }
+.switch-row input { width: 20px; height: 20px; accent-color: var(--primary); flex: none; }
+input[type="checkbox"] { accent-color: var(--primary); width: 17px; height: 17px; }
+.about { max-width: none; }
+.about-head { display: flex; gap: 20px; align-items: center; margin-bottom: 14px; }
+.about-head h1 { margin: 0 0 4px; }
+.about-head p { margin: 4px 0 0; }
+.about-rows { margin-top: 16px; }
+.about-rows div { display: flex; gap: 16px; padding: 7px 0; border-bottom: 1px solid var(--border); }
+.about-rows div:last-child { border-bottom: 0; }
+.about-rows dt { width: 110px; flex: none; color: var(--muted); }
+.about-rows dd { margin: 0; }
+
+/* ---- narrow windows and phones: bottom navigation ---- */
+@media (max-width: 700px) {
+  .body { flex-direction: column-reverse; }
+  .rail { width: auto; flex-direction: row; justify-content: space-around; padding: 4px 4px calc(4px + env(safe-area-inset-bottom)); border-right: 0; border-top: var(--border-w) solid var(--border); }
+  .rail-item { flex: 1; padding: 6px 0; min-height: 52px; }
+  .badge { right: 18%; }
+  .page { padding: 12px 12px 0; }
+  .card { grid-template-columns: minmax(0, 1fr); }
+  .card-actions .btn { flex: 1; }
+  .card-actions .btn span { display: inline; }
+  .go { padding: 0 12px; }
+  .about-head { flex-direction: column; align-items: flex-start; }
+  .statusbar { padding-bottom: 4px; }
+}
+
+/* ---- Android: floating frosted-glass bottom bar (modern themes only; the retro themes keep their classic flat bar) ---- */
+:root[data-theme="light"] { --glass: rgba(255,255,255,.52); --glass-edge: rgba(255,255,255,.75); --nav-act: rgba(2,132,199,.16); }
+:root[data-theme="dark"]  { --glass: rgba(34,34,40,.50);   --glass-edge: rgba(255,255,255,.14); --nav-act: rgba(56,189,248,.22); }
+
+:root:is([data-theme="light"], [data-theme="dark"], [data-theme="glass"]) .app.mobile .body { position: relative; flex-direction: column; }
+:root:is([data-theme="light"], [data-theme="dark"], [data-theme="glass"]) .app.mobile .rail {
+  position: absolute; z-index: 30; left: 14px; right: 14px; bottom: calc(10px + env(safe-area-inset-bottom));
+  width: auto; flex-direction: row; justify-content: space-around; gap: 2px; padding: 6px;
+  border: 1px solid var(--glass-edge); border-radius: 26px; background: var(--glass);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6); backdrop-filter: blur(18px) saturate(1.6);
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+}
+:root:is([data-theme="light"], [data-theme="dark"], [data-theme="glass"]) .app.mobile .rail-item { flex: 1; min-height: 52px; padding: 6px 4px; border-radius: 20px; }
+:root:is([data-theme="light"], [data-theme="dark"], [data-theme="glass"]) .app.mobile .rail-item.active { background: var(--nav-act); color: var(--primary); }
+:root:is([data-theme="light"], [data-theme="dark"], [data-theme="glass"]) .app.mobile .scroll { padding-bottom: 104px; } /* last card stays clear of the bar */
+:root:is([data-theme="light"], [data-theme="dark"], [data-theme="glass"]) .app.mobile .statusbar { padding-bottom: 4px; }
+/* no backdrop-filter (very old WebView): a more solid bar so text stays readable */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root[data-theme="light"] .app.mobile .rail { background: rgba(255,255,255,.94); }
+  :root[data-theme="dark"] .app.mobile .rail { background: rgba(34,34,40,.96); }
+}
+/* modern look for the cards on the phone: bigger corners, softer edges */
+:root:is([data-theme="light"], [data-theme="dark"], [data-theme="glass"]) .app.mobile .card { border-radius: 16px; }
+:root:is([data-theme="light"], [data-theme="dark"], [data-theme="glass"]) .app.mobile .field { border-radius: 20px; }
+
+/* ---- floating, auto-hiding scrollbar (components/Scroller.tsx) ---- */
+.scroller { position: relative; flex: 1; min-height: 0; min-width: 0; display: flex; flex-direction: column; }
+.scroller > .scroll { scrollbar-width: none; }
+.scroller > .scroll::-webkit-scrollbar { display: none; }
+.sbar { position: absolute; top: 0; bottom: 0; right: 2px; width: 12px; pointer-events: none; opacity: 0; transition: opacity .3s ease; z-index: 5; }
+.sbar.show, .sbar:hover { opacity: 1; }
+.sthumb {
+  width: 6px; margin-left: auto; margin-right: 2px; border-radius: 6px; pointer-events: auto; cursor: default; touch-action: none;
+  background: color-mix(in srgb, var(--muted) 60%, transparent); transition: width .15s, margin .15s, background .15s;
+}
+.sthumb:hover, .sthumb:active { width: 9px; margin-right: 1px; background: color-mix(in srgb, var(--muted) 85%, transparent); }
+/* other scrolling boxes (file tree): thin, and the thumb only shows while hovering the box */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: transparent; border: 3px solid transparent; border-radius: 10px; background-clip: padding-box; }
+*:hover::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--muted) 55%, transparent); background-clip: padding-box; }
+
+/* ---- the floating pill hides while scrolling down and returns when scrolling up (desktop and Android) ---- */
+:root[data-look="modern"] .app:not(.mobile) .rail,
+:root:is([data-theme="light"], [data-theme="dark"], [data-theme="glass"]) .app.mobile .rail { transition: transform .3s cubic-bezier(.2, .8, .2, 1), opacity .25s ease; }
+:root[data-look="modern"] .app:not(.mobile) .rail.nav-hidden { transform: translateX(-50%) translateY(160%); opacity: 0; pointer-events: none; }
+:root:is([data-theme="light"], [data-theme="dark"], [data-theme="glass"]) .app.mobile .rail.nav-hidden { transform: translateY(160%); opacity: 0; pointer-events: none; }

@@ -1,0 +1,30 @@
+[package]
+name = "sailhighsea-torrentsearch"
+version = "0.0.1"
+description = "Small, portable torrent search tool"
+edition = "2021"
+license = "MIT"
+
+[lib]
+name = "sailhighsea_torrentsearch_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+tauri-plugin-clipboard-manager = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["rt", "macros", "sync", "time"] }
+futures = "0.3"
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json"] }
+
+[profile.release]
+lto = true
+opt-level = "s"
+codegen-units = 1
+strip = true
+panic = "abort"

@@ -1,0 +1,189 @@
+/* Modern look for the System / Light / Dark themes (html[data-look="modern"], set in App.tsx).
+   The retro themes (Flat 98, Win98, Mac 7, Platinum, CDE, GNOME 2) never match these rules and keep their classic chrome. */
+
+:root[data-look="modern"] {
+  --radius: 14px;
+  --radius-sm: 10px;
+  --font: "Segoe UI Variable Text", "Segoe UI", Inter, system-ui, -apple-system, "SF Pro Text", Roboto, "Noto Sans", sans-serif;
+  --ring: color-mix(in srgb, var(--primary) 18%, transparent);
+  --tint: color-mix(in srgb, var(--primary) 14%, transparent);
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, .06), 0 6px 16px rgba(0, 0, 0, .06);
+  --shadow-2: 0 2px 4px rgba(0, 0, 0, .08), 0 12px 28px rgba(0, 0, 0, .12);
+}
+:root[data-look="modern"][data-theme="light"] { --bg: #f3f5f9; --border: rgba(15, 23, 42, .09); --card-hover: #f8fafc; }
+:root[data-look="modern"][data-theme="dark"]  { --bg: #0c0d10; --card: #16171b; --card-hover: #1c1d22; --border: rgba(255, 255, 255, .08); --primary: #38bdf8; --primary-hover: #0ea5e9; --pri-ink: #04202e; }
+
+/* background: a faint accent glow in two corners */
+:root[data-look="modern"] body {
+  background:
+    radial-gradient(900px 420px at 100% -10%, color-mix(in srgb, var(--primary) 13%, transparent), transparent 70%),
+    radial-gradient(700px 380px at -10% 110%, color-mix(in srgb, var(--primary) 8%, transparent), transparent 70%),
+    var(--bg);
+  background-attachment: fixed;
+}
+:root[data-look="modern"] .app { background: transparent; }
+
+
+/* title bar blends into the window */
+:root[data-look="modern"] .titlebar { height: 38px; background: transparent; color: var(--muted); border-bottom: 0; }
+:root[data-look="modern"] .titlebar-title { font-weight: 500; font-size: .86em; }
+:root[data-look="modern"] .titlebar-buttons button { width: 46px; color: var(--muted); }
+:root[data-look="modern"] .titlebar-buttons button:hover { background: var(--tint); color: var(--text); }
+:root[data-look="modern"] .titlebar-buttons button.close:hover { background: #e81123; color: #fff; }
+
+/* navigation: a floating, icon-only glass pill centred at the bottom (same look as the Android bar).
+   The retro themes keep their classic side rail; the Android build has its own bar (.app.mobile) in app.css. */
+:root[data-look="modern"] .rail { background: transparent; border-right: 0; box-shadow: none; }
+:root[data-look="modern"] .rail-item { border-radius: 10px; }
+:root[data-look="modern"] .rail-item.active { background: var(--tint); color: var(--primary); }
+:root[data-look="modern"] .app:not(.mobile) .body { position: relative; flex-direction: column; }
+:root[data-look="modern"] .app:not(.mobile) .rail {
+  position: absolute; z-index: 30; left: 50%; bottom: 16px; transform: translateX(-50%);
+  width: auto; margin: 0; padding: 6px; gap: 4px; flex-direction: row; align-items: center; justify-content: center;
+  background: var(--glass); border: 1px solid var(--glass-edge); border-radius: 30px;
+  -webkit-backdrop-filter: blur(18px) saturate(1.6); backdrop-filter: blur(18px) saturate(1.6);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .2);
+}
+:root[data-look="modern"] .app:not(.mobile) .rail-item { width: 54px; height: 46px; min-height: 0; padding: 0; flex: none; justify-content: center; align-items: center; border-radius: 22px; transition: background .15s, color .15s; }
+:root[data-look="modern"] .app:not(.mobile) .rail-item span { display: none; } /* names live in the tooltip and aria-label */
+:root[data-look="modern"] .app:not(.mobile) .rail-item svg { width: 22px; height: 22px; }
+:root[data-look="modern"] .app:not(.mobile) .rail-item.active { background: var(--nav-act); color: var(--primary); }
+:root[data-look="modern"] .app:not(.mobile) .badge { top: 3px; right: 6px; min-width: 15px; padding: 0 3px; font-size: .68em; }
+/* the last card stays clear of the bar */
+:root[data-look="modern"] .app:not(.mobile) .scroller > .scroll { padding-bottom: 92px; }
+
+/* pages */
+:root[data-look="modern"] .page { max-width: 1240px; padding: 8px 14px 0 14px; }
+:root[data-look="modern"] .page h1 { font-weight: 600; letter-spacing: -.01em; }
+
+/* search */
+:root[data-look="modern"] .field {
+  height: 50px; padding: 0 16px; border-radius: 16px; background: var(--card); border-color: var(--border);
+  box-shadow: var(--shadow-1); transition: box-shadow .15s, border-color .15s;
+}
+:root[data-look="modern"] .field:focus-within { border-color: var(--primary); box-shadow: 0 0 0 4px var(--ring), var(--shadow-1); }
+:root[data-look="modern"] .field input { font-size: 1.08em; padding: 0; }
+:root[data-look="modern"] .go { height: 50px; padding: 0 24px; border-radius: 14px; font-weight: 600; }
+:root[data-look="modern"] .sugs { border-radius: 16px; padding: 6px; box-shadow: var(--shadow-2); }
+:root[data-look="modern"] .sugs li { border-radius: 10px; }
+:root[data-look="modern"] .sugs li.sel { background: var(--tint); color: var(--text); }
+
+.progress { height: 3px; margin: 10px 2px 0; border-radius: 3px; background: var(--border); overflow: hidden; }
+.progress i { display: block; height: 100%; background: var(--primary); border-radius: 3px; transition: width .35s ease; }
+
+/* buttons, selects */
+:root[data-look="modern"] .btn { min-height: 34px; border-radius: 11px; background: transparent; border-color: var(--border); box-shadow: none; transition: background .15s, border-color .15s, transform .08s; }
+:root[data-look="modern"] .btn:hover { background: var(--card-hover); border-color: color-mix(in srgb, var(--primary) 30%, var(--border)); }
+:root[data-look="modern"] .btn:active { transform: scale(.97); box-shadow: none; }
+:root[data-look="modern"] .btn.primary { background: var(--primary); border-color: var(--primary); color: var(--pri-ink); font-weight: 600; box-shadow: 0 2px 8px color-mix(in srgb, var(--primary) 35%, transparent); }
+:root[data-look="modern"] .btn.primary:hover { background: var(--primary-hover); }
+:root[data-look="modern"] .btn.on { background: color-mix(in srgb, #f5b301 16%, transparent); }
+:root[data-look="modern"] select { border-radius: 10px; background: var(--card); box-shadow: none; }
+:root[data-look="modern"] .link { text-decoration: none; font-weight: 500; }
+
+/* result cards */
+:root[data-look="modern"] .list { gap: 10px; }
+:root[data-look="modern"] .card {
+  padding: 13px 16px; border-radius: 16px; border-color: var(--border); box-shadow: var(--shadow-1);
+  transition: transform .15s, box-shadow .15s, border-color .15s, background .15s;
+}
+:root[data-look="modern"] .card:hover { background: var(--card); transform: translateY(-1px); box-shadow: var(--shadow-2); border-color: color-mix(in srgb, var(--primary) 38%, var(--border)); }
+:root[data-look="modern"] .card-title { font-size: 1.06em; }
+:root[data-look="modern"] .card-meta { gap: 6px; margin-top: 6px; align-items: center; }
+:root[data-look="modern"] .card-meta .src { background: var(--tint); padding: 1px 9px; border-radius: 999px; font-size: .9em; }
+:root[data-look="modern"] .chip { border: 0; background: color-mix(in srgb, var(--muted) 16%, transparent); font-size: .9em; }
+:root[data-look="modern"] .seeds { padding: 1px 9px; border-radius: 999px; background: color-mix(in srgb, var(--success) 15%, transparent); font-weight: 500; }
+:root[data-look="modern"] .leech { padding: 1px 9px; border-radius: 999px; background: color-mix(in srgb, var(--danger) 15%, transparent); }
+:root[data-look="modern"] .card-actions .btn { min-height: 32px; padding: 0 10px; }
+:root[data-look="modern"] .card-detail { border-top-color: var(--border); margin-top: 2px; }
+:root[data-look="modern"] .tree-box { border-radius: 12px; border-color: var(--border); background: color-mix(in srgb, var(--bg) 70%, var(--card)); }
+:root[data-look="modern"] .source-chip { border-radius: 999px; background: var(--card); border-color: var(--border); }
+
+/* hero (empty search page) */
+.hero { display: flex; flex-direction: column; align-items: center; gap: 6px; padding-top: 8vh; }
+.hero img { margin-bottom: 8px; }
+.hero h2 { margin: 0; font-size: 1.5em; font-weight: 600; letter-spacing: -.01em; }
+.hero p { max-width: 460px; margin: 4px 0 8px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 520px; }
+.chip-btn { padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border); background: var(--card); color: var(--text); }
+.chip-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+/* settings, about, history */
+:root[data-look="modern"] .panel { border-radius: 16px; border-color: var(--border); box-shadow: var(--shadow-1); padding: 16px 18px; }
+:root[data-look="modern"] .theme-btn { border-radius: 12px; background: var(--card); box-shadow: none; transition: border-color .15s, background .15s; }
+:root[data-look="modern"] .theme-btn:hover { border-color: var(--primary); }
+:root[data-look="modern"] .theme-btn.active { background: var(--tint); border-color: var(--primary); color: var(--primary); font-weight: 600; }
+:root[data-look="modern"] .history-q { border-radius: 12px; box-shadow: var(--shadow-1); }
+:root[data-look="modern"] .history-q:hover { background: var(--card); border-color: var(--primary); }
+:root[data-look="modern"] .about-rows div { border-bottom-color: var(--border); }
+
+/* status bar */
+:root[data-look="modern"] .statusbar { background: transparent; border-top: 1px solid var(--border); }
+
+/* phone: keep the glass bar from the mobile rules; the sidebar rules above are desktop only */
+@media (max-width: 780px) {
+  :root[data-look="modern"] .page { padding: 8px 14px 0; }
+}
+
+/* ================= Frosted Glass theme ================= */
+:root[data-theme="glass"] body {
+  background:
+    radial-gradient(720px 540px at 6% 4%, rgba(124, 58, 237, .78), transparent 70%),
+    radial-gradient(660px 540px at 98% 10%, rgba(6, 182, 212, .62), transparent 70%),
+    radial-gradient(780px 580px at 72% 110%, rgba(236, 72, 153, .55), transparent 70%),
+    radial-gradient(540px 440px at 0% 100%, rgba(37, 99, 235, .55), transparent 70%),
+    #0b1020;
+  background-attachment: fixed;
+}
+:root[data-theme="glass"] {
+  --glass-fill: rgba(255, 255, 255, .09);
+  --glass-shine: inset 0 1px 0 rgba(255, 255, 255, .22), inset 0 0 0 1px rgba(255, 255, 255, .04);
+  --shadow-1: var(--glass-shine), 0 8px 24px rgba(5, 8, 25, .28);
+  --shadow-2: var(--glass-shine), 0 14px 36px rgba(5, 8, 25, .42);
+  --ring: rgba(125, 211, 252, .28);
+  --tint: rgba(255, 255, 255, .16);
+}
+/* blurred surfaces (kept to the few large ones; the many result cards are translucent only, which scrolls smoother) */
+:root[data-theme="glass"] .field,
+:root[data-theme="glass"] .panel,
+:root[data-theme="glass"] .sugs,
+:root[data-theme="glass"] .statusbar,
+:root[data-theme="glass"] .history-q {
+  -webkit-backdrop-filter: blur(20px) saturate(1.6); backdrop-filter: blur(20px) saturate(1.6);
+}
+:root[data-theme="glass"] .field,
+:root[data-theme="glass"] .panel,
+:root[data-theme="glass"] .card,
+:root[data-theme="glass"] .history-q,
+:root[data-theme="glass"] .theme-btn,
+:root[data-theme="glass"] .tree-box { background: var(--glass-fill); border-color: var(--border); box-shadow: var(--shadow-1); }
+:root[data-theme="glass"] .sugs { background: rgba(30, 36, 70, .55); border-color: var(--border); box-shadow: var(--shadow-2); }
+:root[data-theme="glass"] .card:hover { background: var(--card-hover); border-color: rgba(255, 255, 255, .38); box-shadow: var(--shadow-2); }
+:root[data-theme="glass"] .btn { background: rgba(255, 255, 255, .06); border-color: var(--border); color: var(--text); }
+:root[data-theme="glass"] .btn:hover { background: rgba(255, 255, 255, .16); }
+:root[data-theme="glass"] .btn.primary { background: linear-gradient(180deg, #a5e3ff, #5cc4f5); color: var(--pri-ink); border-color: rgba(255, 255, 255, .5); box-shadow: 0 4px 14px rgba(56, 189, 248, .45), inset 0 1px 0 rgba(255, 255, 255, .6); }
+:root[data-theme="glass"] .btn.primary:hover { background: linear-gradient(180deg, #bdeaff, #7dd3fc); }
+:root[data-theme="glass"] select { background: rgba(255, 255, 255, .1); border-color: var(--border); color: var(--text); }
+:root[data-theme="glass"] .field input { color: var(--text); }
+:root[data-theme="glass"] .chip,
+:root[data-theme="glass"] .source-chip,
+:root[data-theme="glass"] .chip-btn { background: rgba(255, 255, 255, .09); border-color: var(--border); color: var(--text); }
+:root[data-theme="glass"] .go { background: linear-gradient(180deg, #a5e3ff, #5cc4f5); color: var(--pri-ink); box-shadow: 0 4px 14px rgba(56, 189, 248, .45), inset 0 1px 0 rgba(255, 255, 255, .6); }
+:root[data-theme="glass"] .go:disabled { opacity: .55; }
+:root[data-theme="glass"] .theme-btn.active { background: rgba(255, 255, 255, .2); border-color: rgba(255, 255, 255, .55); color: #fff; }
+:root[data-theme="glass"] .progress { background: rgba(255, 255, 255, .14); }
+:root[data-theme="glass"] .progress i { background: linear-gradient(90deg, #a5e3ff, #7dd3fc, #c4b5fd); }
+:root[data-theme="glass"] .statusbar { background: rgba(255, 255, 255, .06); border-top-color: var(--border); }
+:root[data-theme="glass"] .titlebar { color: rgba(255, 255, 255, .8); }
+:root[data-theme="glass"] .titlebar-buttons button { color: rgba(255, 255, 255, .8); }
+:root[data-theme="glass"] .titlebar-buttons button:hover { background: rgba(255, 255, 255, .16); color: #fff; }
+:root[data-theme="glass"] .titlebar-buttons button.close:hover { background: #e81123; }
+:root[data-theme="glass"] .rail-item.active { background: rgba(255, 255, 255, .17); color: #fff; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25); }
+:root[data-theme="glass"] .rail-item:hover { background: rgba(255, 255, 255, .09); }
+:root[data-theme="glass"] .sugs li.sel { background: rgba(255, 255, 255, .16); color: #fff; }
+:root[data-theme="glass"] .sthumb { background: rgba(255, 255, 255, .5); }
+:root[data-theme="glass"] .sthumb:hover, :root[data-theme="glass"] .sthumb:active { background: rgba(255, 255, 255, .75); }
+/* no backdrop-filter support: a more solid fill so text stays readable */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root[data-theme="glass"] .field, :root[data-theme="glass"] .panel, :root[data-theme="glass"] .statusbar, :root[data-theme="glass"] .rail { background: rgba(28, 34, 70, .85); }
+}

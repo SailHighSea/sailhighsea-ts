@@ -36,3 +36,16 @@ secrets.json
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+
+# Tauri / Node
+node_modules/
+dist/
+src-tauri/target/
+src-tauri/gen/android/.gradle/
+src-tauri/gen/android/build/
+src-tauri/gen/android/app/build/
+src-tauri/gen/android/local.properties
+*.keystore
+*.jks
+src-tauri/tauri.ci.json

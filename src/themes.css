@@ -1,0 +1,125 @@
+/* Nine themes. Palettes come from the original raylib app (legacy/src/ui/shs_theme.c).
+   Every theme sets the same variables; the retro ones also set bevels, title styles and fonts.
+   --raised / --sunken are box-shadow values (bevels), --btn-bg / --pri-bg are backgrounds (flat colour or gradient). */
+
+:root {
+  --font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Ubuntu, "Noto Sans", Roboto, sans-serif;
+  --font-size: 14px;
+  --radius: 10px;
+  --radius-sm: 7px;
+  --raised: none;
+  --sunken: none;
+  --btn-bg: var(--card);
+  --btn-ink: var(--text);
+  --pri-bg: var(--primary);
+  --pri-ink: #fff;
+  --title-bg: var(--title-bar);
+  --title-ink: #fff;
+  --title-weight: 600;
+  --border-w: 1px;
+  --tab-on: var(--card);
+  --smooth: antialiased;
+}
+
+/* ---- System / Dark ---- */
+:root, :root[data-theme="dark"] {
+  --bg: #0b0b0c; --card: #161618; --card-hover: #222225; --border: #2e2e32; --title-bar: #000000;
+  --primary: #0284c7; --primary-hover: #0369a1; --text: #f4f4f5; --muted: #9c9ca3;
+  --danger: #dc2626; --success: #22c55e; --warning: #f59e0b;
+  color-scheme: dark;
+}
+
+/* ---- Light ---- */
+:root[data-theme="light"] {
+  --bg: #f1f5f9; --card: #ffffff; --card-hover: #e8eef5; --border: #cbd5e1; --title-bar: #172554;
+  --primary: #0284c7; --primary-hover: #0369a1; --text: #0f172a; --muted: #5b6b82;
+  --danger: #dc2626; --success: #16a34a; --warning: #c26a05;
+  color-scheme: light;
+}
+
+/* ---- Flat 98: square, flat, Tahoma-sized ---- */
+:root[data-theme="flat98"] {
+  --bg: #c0c0c0; --card: #ffffff; --card-hover: #dfdfdf; --border: #404040; --title-bar: #000080;
+  --primary: #000080; --primary-hover: #0000a8; --text: #000000; --muted: #404040;
+  --danger: #b00000; --success: #006400; --warning: #8a5a00;
+  --font: Tahoma, "Segoe UI", Verdana, sans-serif; --font-size: 13px;
+  --radius: 0; --radius-sm: 0;
+  --btn-bg: #c0c0c0; --tab-on: #fff;
+  --smooth: auto; color-scheme: light;
+}
+
+/* ---- Win98: bevelled ---- */
+:root[data-theme="win98"] {
+  --bg: #c0c0c0; --card: #ffffff; --card-hover: #f0f0f0; --border: #808080; --title-bar: #000080;
+  --primary: #000080; --primary-hover: #0000a8; --text: #000000; --muted: #404040;
+  --danger: #b00000; --success: #006400; --warning: #8a5a00;
+  --font: Tahoma, "MS Sans Serif", Verdana, sans-serif; --font-size: 13px;
+  --radius: 0; --radius-sm: 0; --border-w: 0px;
+  --raised: inset -1px -1px #000, inset 1px 1px #fff, inset -2px -2px #808080, inset 2px 2px #dfdfdf;
+  --sunken: inset -1px -1px #fff, inset 1px 1px #808080, inset -2px -2px #dfdfdf, inset 2px 2px #000;
+  --btn-bg: #c0c0c0;
+  --title-bg: linear-gradient(90deg, #000080, #1084d0);
+  --smooth: auto; color-scheme: light;
+}
+
+/* ---- Mac System 7: black and white ---- */
+:root[data-theme="mac7"] {
+  --bg: #ffffff; --card: #ffffff; --card-hover: #eeeeee; --border: #000000; --title-bar: #ffffff;
+  --primary: #000000; --primary-hover: #333333; --text: #000000; --muted: #4a4a4a;
+  --danger: #a00000; --success: #006400; --warning: #7a5200;
+  --font: Geneva, Chicago, "Helvetica Neue", Helvetica, Arial, sans-serif; --font-size: 13px;
+  --radius: 0; --radius-sm: 0;
+  --btn-bg: #fff; --pri-bg: #000; --pri-ink: #fff; --title-ink: #000; --title-weight: 700;
+  --title-bg: repeating-linear-gradient(0deg, #fff 0 1px, #000 1px 2px) center / 100% 11px no-repeat, #fff;
+  --smooth: auto; color-scheme: light;
+}
+
+/* ---- Mac Platinum: grey, soft gradients ---- */
+:root[data-theme="platinum"] {
+  --bg: #dddddd; --card: #ffffff; --card-hover: #f4f4f4; --border: #666666; --title-bar: #cccccc;
+  --primary: #2f6fcf; --primary-hover: #4a86e0; --text: #000000; --muted: #555555;
+  --danger: #b42318; --success: #1b7f1b; --warning: #9a6700;
+  --font: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --radius: 5px; --radius-sm: 4px;
+  --btn-bg: linear-gradient(#fff, #c4c4c4); --pri-bg: linear-gradient(#8dc0f5, #2f6fcf);
+  --title-ink: #000;
+  --title-bg: repeating-linear-gradient(0deg, #f4f4f4 0 1px, #c8c8c8 1px 2px);
+  --raised: inset 0 1px 0 #fff;
+  color-scheme: light;
+}
+
+/* ---- Linux CDE: blue-grey, triple bevel ---- */
+:root[data-theme="cde"] {
+  --bg: #aeb2c3; --card: #c9ccd9; --card-hover: #d4d7e3; --border: #50536a; --title-bar: #718ba6;
+  --primary: #718ba6; --primary-hover: #8199b3; --text: #000000; --muted: #3b3e52;
+  --danger: #9a1b1b; --success: #1f6b2b; --warning: #7a5200;
+  --font: "Helvetica", "Liberation Sans", Arial, sans-serif; --font-size: 13px;
+  --radius: 0; --radius-sm: 0; --border-w: 0px;
+  --raised: inset 1px 1px #e2e4ee, inset 2px 2px #d4d7e3, inset 3px 3px #c0c3d2, inset -1px -1px #3a3c50, inset -2px -2px #50536a, inset -3px -3px #6a6d85;
+  --sunken: inset 1px 1px #3a3c50, inset 2px 2px #50536a, inset 3px 3px #6a6d85, inset -1px -1px #e2e4ee, inset -2px -2px #d4d7e3, inset -3px -3px #c0c3d2;
+  --btn-bg: #aeb2c3; --pri-bg: #718ba6;
+  --title-weight: 700;
+  --smooth: auto; color-scheme: light;
+}
+
+/* ---- Linux GNOME 2: warm orange ---- */
+:root[data-theme="gnome2"] {
+  --bg: #ededeb; --card: #ffffff; --card-hover: #f6f5f4; --border: #8c8c86; --title-bar: #e8b768;
+  --primary: #e07a1f; --primary-hover: #f08a2f; --text: #2e3436; --muted: #6b7068;
+  --danger: #cc0000; --success: #4e9a06; --warning: #c17d11;
+  --font: Cantarell, "DejaVu Sans", Ubuntu, "Segoe UI", sans-serif;
+  --radius: 5px; --radius-sm: 4px;
+  --btn-bg: linear-gradient(#fff, #dcdcd6); --pri-bg: linear-gradient(#f4a85c, #e07a1f);
+  --title-ink: #2e3436; --title-weight: 700;
+  --title-bg: linear-gradient(#f9ecd2, #e8b768);
+  color-scheme: light;
+}
+
+/* ---- Frosted Glass: translucent panels over a colourful backdrop (the blur and backdrop live in modern.css) ---- */
+:root[data-theme="glass"] {
+  --bg: #0b1020; --card: rgba(255, 255, 255, .09); --card-hover: rgba(255, 255, 255, .15); --border: rgba(255, 255, 255, .17); --title-bar: transparent;
+  --primary: #7dd3fc; --primary-hover: #38bdf8; --pri-ink: #04202e; --text: #f6f8ff; --muted: rgba(232, 238, 255, .68);
+  --danger: #fb7185; --success: #4ade80; --warning: #fbbf24;
+  --glass: rgba(255, 255, 255, .12); --glass-edge: rgba(255, 255, 255, .24); --nav-act: rgba(125, 211, 252, .22);
+  color-scheme: dark;
+}

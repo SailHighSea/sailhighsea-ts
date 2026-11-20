@@ -8,3 +8,4 @@
 # Binary assets
 *.png binary
 *.ico binary
+*.py text eol=lf
