@@ -116,41 +116,41 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          New-Item -ItemType Directory dist | Out-Null
-          Copy-Item src-tauri/target/release/bundle/nsis/*.exe "dist/SailHighSea-TorrentSearch-${{ matrix.name }}-setup.exe"
+          New-Item -ItemType Directory release | Out-Null
+          Copy-Item src-tauri/target/release/bundle/nsis/*.exe "release/SailHighSea-TorrentSearch-${{ matrix.name }}-setup.exe"
           # portable: the program plus a marker file; data then lives in a data/ folder next to it
           New-Item -ItemType Directory portable | Out-Null
           Copy-Item src-tauri/target/release/sailhighsea-torrentsearch.exe portable/SailHighSea-TorrentSearch.exe
           New-Item portable/portable.txt -ItemType File -Value "Delete this file to use the normal app data folder instead.`n" | Out-Null
-          Compress-Archive -Path portable/* -DestinationPath "dist/SailHighSea-TorrentSearch-${{ matrix.name }}-portable.zip"
+          Compress-Archive -Path portable/* -DestinationPath "release/SailHighSea-TorrentSearch-${{ matrix.name }}-portable.zip"
 
       - name: Package (Linux)
         if: runner.os == 'Linux'
         run: |
-          mkdir -p dist portable
-          cp src-tauri/target/release/bundle/deb/*.deb "dist/SailHighSea-TorrentSearch-${{ matrix.name }}.deb"
+          mkdir -p release portable
+          cp src-tauri/target/release/bundle/deb/*.deb "release/SailHighSea-TorrentSearch-${{ matrix.name }}.deb"
           APPIMAGE=$(ls src-tauri/target/release/bundle/appimage/*.AppImage | head -1)
           chmod +x "$APPIMAGE"
-          cp "$APPIMAGE" "dist/SailHighSea-TorrentSearch-${{ matrix.name }}.AppImage"
+          cp "$APPIMAGE" "release/SailHighSea-TorrentSearch-${{ matrix.name }}.AppImage"
           # portable: the AppImage plus a marker file in the same folder
           cp "$APPIMAGE" portable/SailHighSea-TorrentSearch.AppImage
           echo "Delete this file to use the normal app data folder instead." > portable/portable.txt
-          tar -czf "dist/SailHighSea-TorrentSearch-${{ matrix.name }}-portable.tar.gz" -C portable .
+          tar -czf "release/SailHighSea-TorrentSearch-${{ matrix.name }}-portable.tar.gz" -C portable .
 
       - name: Package (macOS)
         if: runner.os == 'macOS'
         run: |
-          mkdir -p dist portable
-          cp src-tauri/target/release/bundle/dmg/*.dmg "dist/SailHighSea-TorrentSearch-${{ matrix.name }}.dmg"
+          mkdir -p release portable
+          cp src-tauri/target/release/bundle/dmg/*.dmg "release/SailHighSea-TorrentSearch-${{ matrix.name }}.dmg"
           # portable: the .app plus a marker file next to it; data then lives in a data/ folder beside the bundle
           cp -R src-tauri/target/release/bundle/macos/*.app portable/
           echo "Delete this file to use the normal app data folder instead." > portable/portable.txt
-          (cd portable && zip -r -y "../dist/SailHighSea-TorrentSearch-${{ matrix.name }}-portable.zip" .)
+          (cd portable && zip -r -y "../release/SailHighSea-TorrentSearch-${{ matrix.name }}-portable.zip" .)
 
       - uses: actions/upload-artifact@v4
         with:
           name: SailHighSea-TorrentSearch-${{ matrix.name }}
-          path: dist/*
+          path: release/*
           if-no-files-found: error
 
   android:
@@ -209,16 +209,16 @@ jobs:
 
       - name: Collect
         run: |
-          mkdir dist
+          mkdir release
           APK=$(find src-tauri/gen/android/app/build/outputs/apk -name '*.apk' | head -1)
           [ -n "$APK" ] || { echo "no APK produced"; exit 1; }
           if [ "$HAVE_KEYSTORE" = "true" ]; then NAME=SailHighSea-TorrentSearch-android.apk; else NAME=SailHighSea-TorrentSearch-android-debug.apk; fi
-          cp "$APK" "dist/$NAME"
+          cp "$APK" "release/$NAME"
 
       - uses: actions/upload-artifact@v4
         with:
           name: SailHighSea-TorrentSearch-android
-          path: dist/*
+          path: release/*
           if-no-files-found: error
 
   release:
@@ -231,15 +231,15 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          path: dist
+          path: release
           merge-multiple: true
 
       # An unsigned (debug) APK is not published.
       - name: Drop unsigned APK
-        run: rm -f dist/*-debug.apk
+        run: rm -f release/*-debug.apk
 
       - name: Checksums
-        run: cd dist && sha256sum * > SHA256SUMS.txt && cat SHA256SUMS.txt
+        run: cd release && sha256sum * > SHA256SUMS.txt && cat SHA256SUMS.txt
 
       - name: Create Release and upload binaries
         uses: softprops/action-gh-release@v2
@@ -252,6 +252,6 @@ jobs:
           body: ${{ github.event.head_commit.message }}
           generate_release_notes: true
           prerelease: ${{ contains(needs.version.outputs.tag, '-') }}
-          files: dist/*
+          files: release/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
